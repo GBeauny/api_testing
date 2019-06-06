@@ -12,6 +12,7 @@ chai.use(chaiHttp);
 describe('TodoList', () => {
   beforeEach((done) => {
     TodoItem.remove({}, () => {
+      // To complete
       done();
     });
   });
@@ -19,7 +20,7 @@ describe('TodoList', () => {
   describe('/GET todoitems', () => {
     it('should get all todo items when no items are in database', (done) => {
       chai.request(server).get('/todoitems').end((err, res) => {
-
+        // To complete
         done();
       });
     });
@@ -36,7 +37,7 @@ describe('TodoList', () => {
       firstTodoItem.save(() => {
         secondTodoItem.save(() => {
           chai.request(server).get('/todoitems').end((err, res) => {
-
+            // To complete
             done();
           });
         });
@@ -50,7 +51,7 @@ describe('TodoList', () => {
         status: 'inProgress'
       };
       chai.request(server).post('/todoitems').send(param).end((err, res) => {
-
+        // To complete
         done();
       });
     });
@@ -60,7 +61,7 @@ describe('TodoList', () => {
         name: 'test task name'
       };
       chai.request(server).post('/todoitems').send(param).end((err, res) => {
-
+        // To complete
         done();
       });
     });
@@ -72,7 +73,7 @@ describe('TodoList', () => {
       };
       chai.request(server).post('/todoitems').send(param).end(() => {
         TodoItem.find({}, (err, todoItems) => {
-
+          // To complete
           done();
         });
       });
@@ -82,7 +83,7 @@ describe('TodoList', () => {
   describe('/GET/:id todoitems', () => {
     it('should not get a todo item because it does not exist', (done) => {
       chai.request(server).get('/todoitems/' + mongoose.Types.ObjectId()).end((err, res) => {
-
+        // To complete
         done();
       });
     });
@@ -94,7 +95,7 @@ describe('TodoList', () => {
       });
       aTodoItem.save((err, savedTodoItem) => {
         chai.request(server).get('/todoitems/' + savedTodoItem._id).end((err, res) => {
-
+          // To complete
           done();
         });
       });
@@ -107,7 +108,7 @@ describe('TodoList', () => {
         name: 'new name'
       };
       chai.request(server).put('/todoitems/' + mongoose.Types.ObjectId()).send(param).end((err, res) => {
-
+        // To complete
         done();
       });
     });
@@ -124,7 +125,7 @@ describe('TodoList', () => {
         chai.request(server).put('/todoitems/' + item._id).send(param).end((err, res) => {
 
           TodoItem.find({}, (err, items) => {
-
+            // To complete
             done();
           });
         });
@@ -141,9 +142,9 @@ describe('TodoList', () => {
       };
       item.save(() => {
         chai.request(server).put('/todoitems/' + item._id).send(param).end((err, res) => {
-          
-          TodoItem.find({}, (err, items) => {
 
+          TodoItem.find({}, (err, items) => {
+            // To complete
             done();
           });
         });
@@ -154,7 +155,7 @@ describe('TodoList', () => {
   describe('/DELETE/:id todoitems', () => {
     it('should not delete a todo item because it does not exist', (done) => {
       chai.request(server).delete('/todoitems/' + mongoose.Types.ObjectId()).end((err, res) => {
-
+        // To complete
         done();
       });
     });
@@ -168,7 +169,7 @@ describe('TodoList', () => {
         chai.request(server).delete('/todoitems/' + savedTodoItem._id).end((err, res) => {
 
           TodoItem.find({}, (err, res) => {
-
+            // To complete
           });
           done();
         });
