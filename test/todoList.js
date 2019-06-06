@@ -59,6 +59,8 @@ describe('TodoList', () => {
         expect(res).to.have.status(200);
         res.body.should.be.a('object');
         res.should.be.json;
+        res.body.name.should.eql(param.name);
+        res.body.status.should.eql(param.status);
         done();
       });
     });
@@ -82,5 +84,25 @@ describe('TodoList', () => {
     });
   });
   describe('/PUT todoitems', () => {
+    it('should put a todo item and update the name value', (done) => {
+      const item = new TodoItem({
+        name: 'MyTask',
+        status: 'inProgress'
+      });
+      const param = {
+        name: 'new task name'
+      };
+      item.save(() => {
+        chai.request(server).put('/todoitems/' + item._id).send(param).end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          TodoItem.find({}, (err, items) => {
+            items[0].name.should.eql(param.name);
+            items[0].status.should.eql(item.status);
+            done();
+          });
+        });
+      });
+    });
   });
 });
