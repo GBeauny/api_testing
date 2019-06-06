@@ -50,6 +50,18 @@ describe('TodoList', () => {
         done();
       });
     });
+    it('should get a new item', (done) => {
+      const param = {
+        name: 'MyTask',
+        status: 'done'
+      };
+      chai.request(server).post('/todoitems').send(param).end((err, res) => {
+        expect(res).to.have.status(200);
+        res.body.should.be.a('object');
+        res.should.be.json;
+        done();
+      });
+    });
   });
   describe('/DELETE todoitems', () => {
     it('should delete a todo item', (done) => {
