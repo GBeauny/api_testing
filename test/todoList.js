@@ -28,4 +28,47 @@ describe('TodoList', () => {
       });
     });
   });
+  describe('/GET todoitem', () => {
+    it('should get an error 404', (done) => {
+      chai.request(server).get('/todoitem').end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res).to.have.header('content-length', 39)
+        res.should.be.json;
+        done();
+      });
+    });
+  });
+  describe('/POST todoitems', () => {
+    it('should get an error 500', (done) => {
+      const param = {
+        status: 'test'
+      };
+      chai.request(server).post('/todoitems').send(param).end((err, res) => {
+        expect(res).to.have.status(500);
+        res.body.should.be.a('object');
+        res.should.be.json;
+        done();
+      });
+    });
+  });
+  describe('/DELETE todoitems', () => {
+    it('should delete a todo item', (done) => {
+      const aTodoItem = new TodoItem({
+        name: 'firstTask',
+        status: 'inProgress'
+      });
+      aTodoItem.save((err, savedTodoItem) => {
+        chai.request(server).delete('/todoitems/' + savedTodoItem._id).end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          TodoItem.find({}, (err, res) => {
+            res.length.should.eql(0);
+          });
+          done();
+        });
+      });
+    });
+  });
+  describe('/PUT todoitems', () => {
+  });
 });
